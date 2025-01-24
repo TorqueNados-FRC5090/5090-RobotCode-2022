@@ -1,15 +1,16 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+
 import frc.robot.wrappers.LimitSwitch;
 
 // Controls the climber
 public class Climber {
 
     // Declare motors
-    private CANSparkMax leftMotor;
-    private CANSparkMax rightMotor;
+    private SparkMax leftMotor;
+    private SparkMax rightMotor;
     
     // Declare limit switches
     private LimitSwitch leftLimitSwitch;
@@ -18,8 +19,8 @@ public class Climber {
     // Constructor
     public Climber (int motorID1, int motorID2, int leftLimitSwitchID, int rightLimitSwitchID) {
         // Initialize motors
-        leftMotor = new CANSparkMax(motorID1, MotorType.kBrushless);
-        rightMotor = new CANSparkMax(motorID2, MotorType.kBrushless);
+        leftMotor = new SparkMax(motorID1, MotorType.kBrushless);
+        rightMotor = new SparkMax(motorID2, MotorType.kBrushless);
 
         leftLimitSwitch = new LimitSwitch(leftLimitSwitchID);
         rightLimitSwitch = new LimitSwitch(rightLimitSwitchID);
@@ -28,8 +29,8 @@ public class Climber {
     // Accessor methods
     public double getLeft() { return leftMotor.get(); }
     public double getRight() { return rightMotor.get(); }
-    public CANSparkMax getleftMotor() { return leftMotor; }
-    public CANSparkMax getrightMotor() { return rightMotor; }
+    public SparkMax getleftMotor() { return leftMotor; }
+    public SparkMax getrightMotor() { return rightMotor; }
     public double getLeftClimberPosition() { return leftMotor.getEncoder().getPosition(); }
     public double getRightClimberPosition() { return rightMotor.getEncoder().getPosition(); }
 

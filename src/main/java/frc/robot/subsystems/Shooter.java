@@ -1,14 +1,17 @@
 package frc.robot.subsystems;
 
 // Imports
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 // This object is used to control the shooter
 public class Shooter {
     // Declare all shooter variables 
-    private CANSparkMax leaderMotor; // CW
-    private CANSparkMax followerMotor; // CCW
+    private SparkMax leaderMotor; // CW
+    private SparkMax followerMotor; // CCW
     private boolean shooterIsOn;
     private boolean locked;
     private double currentPower;
@@ -16,15 +19,15 @@ public class Shooter {
   // Constructor method initiallizes variables used
   public Shooter( int LeaderID, int FollowerID) {
     // Initiallize Leader motor
-    leaderMotor = new CANSparkMax(LeaderID, MotorType.kBrushless);
-    leaderMotor.restoreFactoryDefaults();
+    leaderMotor = new SparkMax(LeaderID, MotorType.kBrushless);
 
     // Initialize Follower motor
     // Follower motor is inverted so that it will
     // always spin opposite to the Leader motor
-    followerMotor = new CANSparkMax(FollowerID, MotorType.kBrushless);
-    followerMotor.restoreFactoryDefaults();
-    followerMotor.follow(leaderMotor, true);
+    followerMotor = new SparkMax(FollowerID, MotorType.kBrushless);
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.follow(leaderMotor, true);
+    followerMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     // Shooter starts in the 'off' state
     shooterIsOn = false;
@@ -33,8 +36,8 @@ public class Shooter {
   }
 
   // Accessor Methods (getters)
-  public CANSparkMax getLeaderMotor() { return leaderMotor; }
-  public CANSparkMax getFollowerMotor() { return followerMotor; }
+  public SparkMax getLeaderMotor() { return leaderMotor; }
+  public SparkMax getFollowerMotor() { return followerMotor; }
   public double getLeaderMotorRPM() { return leaderMotor.getEncoder().getVelocity(); }
   public double getFollowerMotorRPM() { return followerMotor.getEncoder().getVelocity(); }
   public boolean isOn() { return shooterIsOn; }

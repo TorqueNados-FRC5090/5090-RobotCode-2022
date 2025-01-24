@@ -1,8 +1,12 @@
 package frc.robot.subsystems;
 
 // Imports
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 import frc.robot.wrappers.LaserDetector;
 
 public class Elevator {
@@ -10,15 +14,18 @@ public class Elevator {
     // Declare variables
     private LaserDetector topSensor;
     private LaserDetector bottomSensor;
-    private CANSparkMax motor; 
+    private SparkMax motor; 
     private boolean bottomSensorHasBall;
     private boolean topSensorHasBall;
 
     // Constructor 
     public Elevator(int motorID, int bottomSensorID, int topSensorID) {
         // Initialize motors
-        motor = new CANSparkMax(motorID, MotorType.kBrushless);
-        motor.setInverted(true);
+        motor = new SparkMax(motorID, MotorType.kBrushless);
+        // Invert motor
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.inverted(true);
+        motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
         // Initialize Laser
         topSensor = new LaserDetector(bottomSensorID);

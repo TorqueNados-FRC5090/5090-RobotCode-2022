@@ -1,22 +1,22 @@
 package frc.robot.subsystems;
 
 // Imports
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 // Controls the turret system
 public class Turret {
-    CANSparkMax motor;
+    SparkMax motor;
 
     // Constructor
     public Turret(int motorID) {
-        motor = new CANSparkMax(motorID, MotorType.kBrushless);
+        motor = new SparkMax(motorID, MotorType.kBrushless);
     }
 
     // Accessors
     public double getRPM() { return motor.getEncoder().getVelocity(); }
     public double getPosition() { return motor.getEncoder().getPosition(); }
-    public CANSparkMax getMotor() { return motor; }
+    public SparkMax getMotor() { return motor; }
 
     // Sets motor to specified power
     public void setPower(double pwr) { motor.set(pwr); }

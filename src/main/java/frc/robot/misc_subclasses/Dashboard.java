@@ -57,8 +57,7 @@ public class Dashboard {
             pid.setSetpoint(setpointD);
 
         SmartDashboard.putNumber("PID-" + id + " Setpoint", pid.getSetpoint());
-        SmartDashboard.putNumber("PID-" + id + " RPM", pid.getRPM());
-        SmartDashboard.putNumber("PID-" + id + " Position", pid.getPosition());
+        SmartDashboard.putNumber("PID-" + id + " Measurement", pid.getMeasurement());
         SmartDashboard.putString("PID-" + id + " Domain", "[" + pid.getMin() + ", " + pid.getMax() + "]");
     }
 
@@ -71,8 +70,7 @@ public class Dashboard {
             pid.setSetpoint(setpointD);
             
         SmartDashboard.putNumber(name + " Setpoint", pid.getSetpoint());
-        SmartDashboard.putNumber(name + " RPM", pid.getRPM());
-        SmartDashboard.putNumber(name + " Position", pid.getPosition());
+        SmartDashboard.putNumber(name + " Measurement", pid.getMeasurement());
         SmartDashboard.putString(name + " Domain", "[" + pid.getMin() + ", " + pid.getMax() + "]");
     }
 }

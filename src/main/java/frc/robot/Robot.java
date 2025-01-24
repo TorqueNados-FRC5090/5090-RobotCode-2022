@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.wrappers.GenericPID;
-import com.revrobotics.CANSparkMax.ControlType;
+import com.revrobotics.spark.SparkBase.ControlType;
 
 // Camera imports
 import edu.wpi.first.cameraserver.CameraServer;
@@ -76,8 +76,7 @@ public class Robot extends TimedRobot {
     xbox  = new XboxController(1);
   
     drivetrain = new Drivetrain(7, 3, 6, 2);
-    robotDrive = new DifferentialDrive(
-      drivetrain.getLeftMotorGroup(), drivetrain.getRightMotorGroup());
+    robotDrive = drivetrain.getDrivetrain();
 
     CameraServer.startAutomaticCapture();
     limelight = new Limelight();
@@ -126,20 +125,17 @@ public class Robot extends TimedRobot {
 
     // drops intake
     if (currentTime > 0.01 && currentTime < 1.5) {
-      drivetrain.getLeftMotorGroup().set(0);
-      drivetrain.getRightMotorGroup().set(0);
+      robotDrive.tankDrive(0, 0);
     }
 
     // drives backwards
     if (currentTime > 1.5 && currentTime < 2.6) {
-      drivetrain.getLeftMotorGroup().set(0.4);
-      drivetrain.getRightMotorGroup().set(-0.4);
+      robotDrive.tankDrive(.4, -.4);
     }
 
     // stops drive
     if (currentTime > 2.6 && currentTime < 4.9) {
-      drivetrain.getLeftMotorGroup().set(0);
-      drivetrain.getRightMotorGroup().set(0);
+      robotDrive.tankDrive(0, 0);
     }
 
     // aims hood and starts flywheel and aims turret

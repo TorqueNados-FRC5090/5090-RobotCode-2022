@@ -3,13 +3,13 @@ package frc.robot.subsystems;
 // Imports
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class Intake {
   // Variable Declaration
   private DoubleSolenoid dubs;
-  private CANSparkMax motor;
+  private SparkMax motor;
 
   // Is true if the arms are up 
   // Motor should NOT move if this is true
@@ -20,7 +20,7 @@ public class Intake {
     // Initialize Variables
     this.dubs = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
 
-    this.motor = new CANSparkMax(motorID, MotorType.kBrushless);
+    this.motor = new SparkMax(motorID, MotorType.kBrushless);
 
     // Arms start in the up position
     this.solenoidIsUp = false;
